@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        body {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    </style>
+</head>
+<body>
+    <h1>GitHub searcher</h1>
+
+    <div style="display: flex;">
+    <form method="post" action="/">
+        <label><input type="checkbox" name="field" value="reponame"> Reponame</label><br>
+        <label><input type="checkbox" name="field" value="readme"> Readme</label><br>
+        <label><input type="checkbox" name="field" value="about"> About</label><br>
+        <label><input type="checkbox" name="field" value="languages"> Languages</label><br>
+        <label><input type="checkbox" name="field" value="tags"> Tags</label><br>
+        <label><input type="checkbox" name="field" value="username"> Username</label><br>
+
+
+        <label for="search_query">Search:</label>
+        <input type="text" name="search_query" id="search_query" required>
+        <input type="submit" value="Search">
+    </form>
+
+    <form method="post" action="/adv">
+        <div>
+            <input type="checkbox" id="reponame_checkbox" name="reponame" value="1" title="MUST">
+            <label for="reponame_checkbox"> Reponame</label>
+            <input type="text" id="reponame_input" name="reponame_input" placeholder="Enter value for Reponame">
+        </div>
+
+        <div>
+            <input type="checkbox" id="readme_checkbox" name="readme" value="1" title="MUST">
+            <label for="readme_checkbox"> Readme</label>
+            <input type="text" id="readme_input" name="readme_input" placeholder="Enter value for Readme">
+        </div>
+
+        <div>
+            <input type="checkbox" id="about_checkbox" name="about" value="1" title="MUST">
+            <label for="about_checkbox"> About</label>
+            <input type="text" id="about_input" name="about_input" placeholder="Enter value for About">
+        </div>
+
+        <div>
+            <input type="checkbox" id="languages_checkbox" name="languages" value="1" title="MUST">
+            <label for="languages_checkbox"> Languages</label>
+            <input type="text" id="languages_input" name="languages_input" placeholder="Enter value for Languages">
+        </div>
+
+        <div>
+            <input type="checkbox" id="username_checkbox" name="username" value="1" title="MUST">
+            <label for="username_checkbox"> Username</label>
+            <input type="text" id="username_input" name="username_input" placeholder="Enter value for Username">
+        </div>
+
+        <input type="submit" value="Advanced Search">
+    </form>
+    </div>
+    {% if results %}
+        <h2>Search Results: {{ results|length }} found</h2>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Repository Name</th>
+                <th>Readme</th>
+                <th>About</th>
+                <th>Languages</th>
+                <th>Tags</th>
+                <th>Wiki Data</th>
+            </tr>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.username }}</td>
+                    <td>{{ result.reponame }}</td>
+                    <td>{{ result.readme }}</td>
+                    <td>{{ result.about }}</td>
+                    <td>{{ result.languages }}</td>
+                    <td>{{ result.tags }} </td>
+                    <td><a href="{{ url_for('wikiinfo', id=result.docid) }}">Open WIKI data</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

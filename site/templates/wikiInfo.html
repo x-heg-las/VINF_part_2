@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Abstracts Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .result-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .result-card-header {
+            background-color: #9542f4;
+            color: #fff;
+            padding: 15px;
+        }
+
+        .result-card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .result-card-url {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .result-card-abstract {
+            font-size: 14px;
+            color: #333;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wiki Abstracts Results</h1>
+
+    {% for result in results %}
+        <div class="result-card">
+            <div class="result-card-header">
+                <div class="result-card-title"><a class="result-card-url" href="{{ result['url'] }}" target="_blank">{{ result['title'] }}</a></div>
+            </div>
+        
+            <div class="result-card-abstract">
+                {{ result['abstract'] }}
+            </div>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
